@@ -1,0 +1,102 @@
+<resources>
+
+    <string name="app_name">Book24</string>
+
+    <string name="tab_home">Главная</string>
+    <string name="tab_catalog">Каталог</string>
+    <string name="tab_basket">Корзина</string>
+    <string name="tab_discount">Акции</string>
+    <string name="tab_profile">Кабинет</string>
+
+    <string name="tab_login">Вход</string>
+    <string name="tab_registration">Регистрация</string>
+
+    <string name="actionbar_personal_profile">Личный кабинет</string>
+    <string name="actionbar_catalog">Каталог</string>
+
+    <string name="profile_status_title">Текущий статус:</string>
+    <string name="profile_points">Баллов</string>
+    <string name="profile_points_for_shopping">%1$d ₽ на покупки</string>
+    <string name="profile_percent_for_shopping">%1$d\nСКИДКА</string>
+    <string name="profile_orders">Мои заказы</string>
+    <string name="profile_notifications">Уведомления</string>
+    <string name="profile_settings">Настройки</string>
+    <string name="percent">%</string>
+    <string name="percent_prefix">-%.0f\%%</string>
+    <string name="percent_prefix_decimal">-%1d\%%</string>
+
+
+    <string name="home_popular_category">Популярные категории</string>
+    <string name="home_personal_recommendations">Персональные рекомендации</string>
+    <string name="home_novelty">Новинки</string>
+    <string name="home_bestsellers">Бестселлеры</string>
+    <string name="home_popular_authors">Популярные авторы</string>
+    <string name="home_popular_compilation">Популярные подборки</string>
+    <string name="all">Все</string>
+    <string name="currency">%.0f ₽</string>
+    <string name="plus_prefix">\u002B%1$d</string>
+    <string name="minus_prefix_string">\u2212%1$s</string>
+
+    <string name="category_product_count">Книг</string>
+
+    <string name="search_hint">Поиск книг, авторов</string>
+    <string name="search_popular_request_title">Популярные запросы</string>
+
+    <string name="basket_title">Корзина</string>
+    <string name="basket_empty_title">Ваша корзина сейчас пуста</string>
+    <string name="basket_empty_description">Воспользуйтесь каталогом, чтобы ее заполнить.</string>
+    <string name="basket_empty_description_not_authorized">Воспользуйтесь каталогом, чтобы ее заполнить. Или войдите, если в корзине были товары</string>
+    <string name="basket_empty_description_not_authorized_login">войдите</string>
+    <string name="basket_go_to_catalog_button">Перейти в каталог</string>
+    <string name="basket_promocode">Промокод</string>
+    <string name="basket_card_mnogoru">Карта Много.ру</string>
+    <string name="basket_plus">+</string>
+    <string name="basket_minus">-</string>
+    <string name="basket_total_price_without_delivery_title">Итого без доставки</string>
+    <string name="basket_full_price_title">Сумма заказа</string>
+    <string name="basket_discount_title">Скидка</string>
+    <string name="basket_gift_bonus_title">Дарим баллы</string>
+    <string name="basket_free_delivery_message">Добавьте товары на сумму %.0f ₽ и мы доставим бесплатно!</string>
+    <string name="basket_products_count">Товаров: %1d</string>
+    <string name="basket_product_weight">Вес: %.2f кг</string>
+    <string name="basket_few_left">Осталось %1d шт</string>
+
+    <string name="product_discount_title">Скидка: </string>
+    <string name="product_reviews">ОТЗЫВЫ </string>
+    <string name="product_about_product">О книге</string>
+    <string name="product_change">ИЗМЕНИТЬ</string>
+
+    <string name="login_page_title">Войдите в свой личный кабинет или зарегистрируйтесь, чтобы активировать <b>баллы и получить скидку на товары</b>!</string>
+    <string name="hint_email">Адрес электронной почты</string>
+    <string name="hint_pswd">Введите пароль</string>
+    <string name="hint_name_surname">Фамилия Имя Отчество</string>
+    <string name="hint_phone">Номер телефона</string>
+
+    <string name="btn_login">Войти</string>
+    <string name="btn_logout">Выйти</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_register">Зарегистрироваться</string>
+    <string name="btn_fgt_pswd">Забыли пароль?</string>
+    <string name="btn_chng_pswd">Сменить пароль</string>
+    <string name="btn_help">Помощь</string>
+    <string name="btn_terms">Пользовательское соглашение </string>
+    <string name="btn_to_basket">В корзину</string>
+    <string name="btn_apply">Применить</string>
+    <string name="btn_checkout">Оформить</string>
+    <string name="btn_continue_order">Перейти к оформлению</string>
+    <string name="btn_sort_popularity">По популярности</string>
+
+    <string name="error_default_message">Упс, произошла ошибка! Приносим свои извинения, и уже пытаемся в этом разобраться…</string>
+
+    <string name="registration_receive_news">Получать новостные рассылки</string>
+    <string name="registration_agreement">Нажатием кнопки «Зарегистрироваться»
+Вы соглашаетесь с Пользовательским соглашением и даëте согласие на Обработку персональных данных</string>
+    <string name="registration_terms">Пользовательским соглашением</string>
+    <string name="registration_personal_data">Обработку персональных данных</string>
+
+    <string name="validation_empty_field">Поле обязательно для заполнения</string>
+    <string name="validation_email_invalid">Введите корректный Email</string>
+    <string name="validation_phone_invalid">Телефон должен быть не менее 10 символов</string>
+    <string name="validation_first_second_name">Введите Фамилию Имя</string>
+
+</resources>

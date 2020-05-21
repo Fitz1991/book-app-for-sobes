@@ -1,0 +1,66 @@
+ext {
+
+    appVersion = [
+            minSdk    : 21,
+            targetSdk : 29,
+            compileSdk: 29
+    ]
+
+    androidLibsVersion = [
+            materialVersion        : "1.0.0",
+            navigationVersion      : "2.1.0",
+            appcompatVersion       : "1.1.0",
+            ktxVersion             : "1.1.0",
+            timberVersion          : "4.7.1",
+            constraintLayoutVersion: "1.1.3",
+            rxKotlinVersion        : "2.2.0",
+            rxAndroidVersion       : "2.1.1",
+            retrofitVersion        : "2.7.1",
+            koinVersion            : '2.0.1',
+            okHttpVersion          : '3.11.0',
+            rxJavaVersion          : '2.2.0',
+            okhttpProfilerVersion  : '1.0.5',
+            maskedEditTextVersion  : '1.0.5',
+            pagingVersion          : '1.0.1',
+            picassoVersion         : '2.71828'
+    ]
+
+    pluginsVersion = [
+            navigationPluginVersion: "${androidLibsVersion.navigationVersion}",
+            kotlinVersion          : "1.3.61",
+            gradleToolsVersion     : "3.5.3",
+            gmsVersion             : "4.3.2",
+    ]
+
+    androidPlugins = [
+            navigation: "androidx.navigation:navigation-safe-args-gradle-plugin:${pluginsVersion.navigationPluginVersion}",
+            kotlin    : "org.jetbrains.kotlin:kotlin-gradle-plugin:${pluginsVersion.kotlinVersion}",
+            gradle    : "com.android.tools.build:gradle:${pluginsVersion.gradleToolsVersion}",
+            gms       : "com.google.gms:google-services:${pluginsVersion.gmsVersion}"
+    ]
+
+    androidLibs = [
+            material               : "com.google.android.material:material:${androidLibsVersion.materialVersion}",
+            navigationFragment     : "androidx.navigation:navigation-fragment-ktx:${androidLibsVersion.navigationVersion}",
+            navigationUi           : "androidx.navigation:navigation-ui-ktx:${androidLibsVersion.navigationVersion}",
+            kotlinStdLib           : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${pluginsVersion.kotlinVersion}",
+            appcompat              : "androidx.appcompat:appcompat:${androidLibsVersion.appcompatVersion}",
+            ktx                    : "androidx.core:core-ktx:${androidLibsVersion.ktxVersion}",
+            timber                 : "com.jakewharton.timber:timber:${androidLibsVersion.timberVersion}",
+            constraintLayout       : "com.android.support.constraint:constraint-layout:${androidLibsVersion.constraintLayoutVersion}",
+            rxKotlin               : "io.reactivex.rxjava2:rxkotlin:${androidLibsVersion.rxKotlinVersion}",
+            rxAndroid              : "io.reactivex.rxjava2:rxandroid:${androidLibsVersion.rxAndroidVersion}",
+            retrofit               : "com.squareup.retrofit2:retrofit:${androidLibsVersion.retrofitVersion}",
+            retrofitAdapter        : "com.squareup.retrofit2:adapter-rxjava2:${androidLibsVersion.retrofitVersion}",
+            retrofitConverter      : "com.squareup.retrofit2:converter-gson:${androidLibsVersion.retrofitVersion}",
+            koin                   : "org.koin:koin-java:${androidLibsVersion.koinVersion}",
+            koinViewModel          : "org.koin:koin-androidx-viewmodel:${androidLibsVersion.koinVersion}",
+            okHttpLogginInterceptor: "com.squareup.okhttp3:logging-interceptor:${androidLibsVersion.okHttpVersion}",
+            okhttpUrlConnection     : "com.squareup.okhttp3:okhttp-urlconnection:${androidLibsVersion.okHttpVersion}",
+            rxJava                 : "io.reactivex.rxjava2:rxjava:${androidLibsVersion.rxJavaVersion}",
+            okhttpProfiler         : "com.itkacher.okhttpprofiler:okhttpprofiler:${androidLibsVersion.okhttpProfilerVersion}",
+            maskedEditText         : "ru.egslava:MaskedEditText:${androidLibsVersion.maskedEditTextVersion}",
+            pagingLibrary         :  "android.arch.paging:runtime:${androidLibsVersion.pagingVersion}",
+            picasso                : "com.squareup.picasso:picasso:${androidLibsVersion.picassoVersion}"
+    ]
+}

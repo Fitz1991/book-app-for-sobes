@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="isIntercept" format="boolean"/>
+
+    <declare-styleable name="InterceptFrameLayout">
+        <attr name="isIntercept"/>
+    </declare-styleable>
+
+    <declare-styleable name="InterceptLinearLayout">
+        <attr name="isIntercept"/>
+    </declare-styleable>
+
+    <declare-styleable name="InterceptRelativeLayout">
+        <attr name="isIntercept"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="LoopingViewPager">
+        <attr name="isScaleSideItems" format="boolean" />
+        <attr name="isInfinite" format="boolean" />
+        <attr name="autoScroll" format="boolean" />
+        <attr name="wrap_content" format="boolean" />
+        <attr name="scrollInterval" format="integer"/>
+        <attr name="viewpagerAspectRatio" format="float"/>
+        <attr name="itemAspectRatio" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="ExpandableTextView">
+        <attr name="trimLength" format="integer" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.infoshell.presentation.ui.search.SearchViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/grid_10"
+        android:paddingStart="@dimen/grid_20"
+        android:paddingEnd="@dimen/grid_20"
+        tools:context="com.infoshell.presentation.ui.search.SearchFragment">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_17"
+            android:fontFamily="sans-serif-medium"
+            android:textAppearance="@style/TextAppearance.Title"
+            android:textStyle="normal"
+            android:textColor="@color/colorPrimaryBlack"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="7sp"
+            android:text="@string/search_popular_request_title" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/popularRequestsCG"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_10"
+            android:clipChildren="true"
+            app:chipSpacing="@dimen/grid_8">
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipCornerRadius="4dp"
+                android:text="Chip" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

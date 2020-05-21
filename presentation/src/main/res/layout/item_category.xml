@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="category"
+            type="com.infoshell.presentation.enity.DisplayCategory" />
+        <variable
+            name="onClickHandler"
+            type="com.infoshell.presentation.ui.catalog.category.CategoryDataAdapter.Companion.OnItemClickListener" />
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/catalog_category_height"
+        android:background="@drawable/sel_btn_transparent"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:onClick="@{(view)-> onClickHandler.handle(view,category)}"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/grid_20"
+        android:paddingEnd="@dimen/grid_20">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/catalog_category_logo_size"
+            android:layout_height="@dimen/catalog_category_logo_size"
+            android:layout_marginEnd="@dimen/grid_20"
+            android:layout_weight="0"
+            app:srcCompat="@drawable/ic_tab_catalog" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/grid_8"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:maxLines="2"
+            android:text="@{category.name}"
+            android:textColor="@color/colorPrimaryBlack"
+            android:textSize="@dimen/text_size_16"
+            android:textStyle="normal"
+            tools:text="Category" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

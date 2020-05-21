@@ -1,0 +1,96 @@
+apply from: "../dependencies.gradle"
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'com.google.gms.google-services'
+
+android {
+    compileSdkVersion appVersion.compileSdk
+
+    defaultConfig {
+        applicationId "com.infoshell.book24"
+        minSdkVersion appVersion.minSdk
+        targetSdkVersion appVersion.targetSdk
+        versionCode 2
+        versionName "0.0.2"
+
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            storeFile = file("../keys/key.jks")
+            storePassword = 'Dol$4hUI2k%%2'
+            keyAlias = 'book24'
+            keyPassword = 'Dol$4hUI2k%%2'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def project = "Book24"
+            def separator = "_"
+            def version = variant.versionName
+            def newApkName = project + separator + "v" + version + ".apk"
+            outputFileName = new File(newApkName)
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation androidLibs.material
+    implementation androidLibs.navigationFragment
+    implementation androidLibs.navigationUi
+    implementation androidLibs.kotlinStdLib
+    implementation androidLibs.appcompat
+    implementation androidLibs.ktx
+    implementation androidLibs.timber
+    implementation androidLibs.constraintLayout
+    implementation androidLibs.rxJava
+    implementation androidLibs.koin
+    implementation androidLibs.koinViewModel
+    implementation androidLibs.maskedEditText
+    implementation androidLibs.picasso
+    implementation androidLibs.pagingLibrary
+
+    implementation project(path: ':domain')
+    implementation project(path: ':data')
+    implementation project(path: ':cache')
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}

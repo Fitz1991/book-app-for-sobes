@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.infoshell.presentation.ui.home.ProductViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/home_product_picture_width"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/productIV"
+            android:layout_width="@dimen/home_product_picture_width"
+            android:layout_height="@dimen/home_product_picture_height"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadUrl="@{viewModel.product.image}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_red_tag"
+            android:gravity="center"
+            android:minWidth="@dimen/home_product_tag_width"
+            android:minHeight="@dimen/home_product_tag_height"
+            android:padding="@dimen/grid_4"
+            android:text="@{String.format(@string/percent_prefix, viewModel.product.promo)}"
+            android:textColor="@color/colorPrimaryWhite"
+            android:translationY="@dimen/grid_10"
+            android:visibility="@{viewModel.isPromotionActive ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@+id/productIV"
+            app:layout_constraintStart_toStartOf="@+id/productIV" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_16"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/productIV"
+            app:layout_constraintStart_toStartOf="@+id/productIV"
+            app:layout_constraintTop_toBottomOf="@+id/productIV">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/grid_8"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="-0.04"
+                android:maxLines="1"
+                android:text="@{String.format(@string/currency, viewModel.product.price)}"
+                android:textAppearance="@style/TextAppearance.Light" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:letterSpacing="0.01"
+                android:maxLines="1"
+                android:text="@{String.format(@string/currency, viewModel.product.fullPrice)}"
+                android:textAppearance="@style/TextAppearance.Light.Grey"
+                android:visibility="@{viewModel.isPromotionActive ? View.VISIBLE : View.GONE}"
+                app:strikeThrough="@{true}" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

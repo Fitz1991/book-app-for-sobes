@@ -1,0 +1,236 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.App" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+    </style>
+
+    <style name="BottomNavigationView" />
+
+    <style name="BottomNavigationView.Home">
+        <item name="android:background">@color/colorPrimaryWhite</item>
+        <item name="itemIconTint">@drawable/sel_home_tab</item>
+        <item name="itemTextColor">@drawable/sel_home_tab</item>
+    </style>
+
+    <style name="TabLayout" parent="Widget.Design.TabLayout" />
+
+    <style name="TabLayout.Profile">
+        <item name="tabIndicatorColor">@color/colorPrimaryGreen</item>
+        <item name="tabTextColor">@drawable/sel_tab_profile_text</item>
+        <item name="tabMode">fixed</item>
+        <item name="android:background">@drawable/layer_tablayout_border_bottom</item>
+        <item name="tabTextAppearance">@style/TabLayout.Text</item>
+    </style>
+
+    <style name="TabLayout.Text" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="Actionbar" />
+
+    <style name="Actionbar.Title">
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:paddingStart">@dimen/grid_16</item>
+        <item name="android:paddingEnd">@dimen/grid_16</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="Actionbar.Title.Bold">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="Actionbar.Title.Bold.Black">
+        <item name="android:textColor">@color/colorPrimaryBlack</item>
+    </style>
+
+    <style name="EditText" />
+
+    <style name="EditText.SearchBar">
+        <item name="android:background">@drawable/bg_transparent_bordered</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawableStart">@drawable/ic_search</item>
+        <item name="android:drawablePadding">@dimen/grid_20</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:inputType">text</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:hint">@string/search_hint</item>
+        <item name="android:textColor">@color/colorPrimaryBlack</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColorHint">@color/colorPrimaryGreyMiddle</item>
+    </style>
+
+    <style name="TextView" />
+
+    <style name="TextView.Clickable">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">@drawable/sel_btn_transparent</item>
+        <item name="android:padding">@dimen/grid_2</item>
+    </style>
+
+    <style name="TextAppearance" />
+
+    <style name="TextAppearance.Title">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/colorPrimaryBlack</item>
+        <item name="android:paddingTop">@dimen/grid_24</item>
+        <item name="android:paddingBottom">@dimen/grid_24</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextAppearance.Extra">
+        <item name="android:textSize">@dimen/text_size_42</item>
+        <item name="android:textColor">@color/colorPrimaryBlack</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="TextAppearance.Extra.Green">
+        <item name="android:textColor">@color/colorPrimaryGreen</item>
+    </style>
+
+    <style name="TextAppearance.Large">
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/colorPrimaryBlack</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="TextAppearance.Large.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Large.White">
+        <item name="android:textColor">@color/colorPrimaryWhite</item>
+    </style>
+
+    <style name="TextAppearance.Medium">
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/colorPrimaryBlack</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="TextAppearance.Light">
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="TextAppearance.Small">
+        <item name="android:textSize">@dimen/text_size_13</item>
+    </style>
+
+    <style name="TextAppearance.Light.Grey">
+        <item name="android:textColor">@color/colorPrimaryGrey</item>
+    </style>
+
+    <style name="TextAppearance.Light.White">
+        <item name="android:textColor">@color/colorPrimaryWhite</item>
+    </style>
+
+    <style name="TextAppearance.Light.Blue">
+        <item name="android:textColor">@color/colorPrimaryBlue</item>
+    </style>
+
+    <style name="TextAppearance.Small.White">
+        <item name="android:textColor">@color/colorPrimaryWhite</item>
+    </style>
+
+    <style name="CardView" />
+
+    <style name="CardView.InputForm">
+        <item name="cardElevation">@dimen/default_card_elevation</item>
+        <item name="cardCornerRadius">@dimen/default_card_radius</item>
+    </style>
+
+    <style name="TextInputLayout" />
+
+    <style name="TextInputLayout.Normal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout" />
+
+    <style name="TextInputLayoutAppearance.Black">
+        <item name="hintTextAppearance">@style/HintText</item>
+        <item name="errorTextAppearance">@style/ErrorText</item>
+        <item name="android:textColor">@color/colorPrimaryBlack</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryBlack</item>
+        <item name="android:textColorHint">@color/colorPrimaryGrey</item>
+        <item name="colorControlNormal">@android:color/transparent</item>
+        <item name="colorControlActivated">@color/colorPrimaryGrey</item>
+        <item name="colorControlHighlight">@color/colorPrimaryBlack</item>
+    </style>
+
+    <style name="ErrorText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorPrimaryRed</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="HintText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorPrimaryGrey</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:height">@dimen/button_default_height</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:paddingTop">@dimen/grid_8</item>
+        <item name="android:paddingBottom">@dimen/grid_8</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="Button.Green">
+        <item name="android:textColor">@color/colorPrimaryWhite</item>
+        <item name="android:background">@drawable/sel_btn_round_green</item>
+    </style>
+
+    <style name="Button.Transparent">
+        <item name="android:textSize">@dimen/text_size_15</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:background">@drawable/sel_btn_round_transparent</item>
+    </style>
+
+    <style name="Button.Bordered">
+        <item name="android:background">@drawable/sel_btn_round_transparent_bordered</item>
+    </style>
+
+    <style name="Button.Transparent.Blue">
+        <item name="android:textColor">@color/colorPrimaryBlue</item>
+    </style>
+
+    <style name="ProgressBarWhite">
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTintMode">src_in</item>
+        <item name="android:indeterminateTint">@color/colorPrimaryWhite</item>
+    </style>
+
+    <style name="StarRating" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="android:minHeight">18dip</item>
+        <item name="android:minWidth">18dip</item>
+        <item name="android:progressDrawable">@drawable/rating_bar_bg</item>
+    </style>
+
+    <style name="product_padding">
+        <item name="android:paddingStart">@dimen/grid_20</item>
+        <item name="android:paddingEnd">@dimen/grid_20</item>
+    </style>
+
+    <style name="Chip" />
+
+    <style name="Chip.SearchChip">
+        <item name="chipCornerRadius">@dimen/grid_4</item>
+    </style>
+
+
+</resources>

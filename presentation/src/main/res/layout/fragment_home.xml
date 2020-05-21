@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="androidx.recyclerview.widget.RecyclerView" />
+
+        <variable
+            name="viewModel"
+            type="com.infoshell.presentation.ui.home.HomeViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/grid_20">
+
+            <com.infoshell.presentation.ui.custom.viewpager.LoopingViewPager
+                android:id="@+id/promotionsVP"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_banner_height"
+                android:clipToPadding="false"
+                android:visibility="@{viewModel.isPromotionsLoaded ? View.VISIBLE : View.GONE}"
+                app:autoScroll="true"
+                app:isInfinite="true"
+                app:isScaleSideItems="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_10"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/grid_20"
+                android:paddingBottom="@dimen/grid_20"
+                android:visibility="@{viewModel.isCategoriesLoaded ? View.VISIBLE : View.GONE}"
+                app:isIntercept="@{viewModel.isCategoriesProcessing}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/home_side_padding"
+                    android:paddingEnd="@dimen/home_side_padding"
+                    android:paddingBottom="@dimen/grid_20">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/home_popular_category"
+                        android:textAppearance="@style/TextAppearance.Large.Bold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.Clickable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/all"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.Light.Blue"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/categoryListRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:paddingStart="@dimen/home_side_padding"
+                    android:paddingEnd="@dimen/home_side_padding"
+                    app:dividerDecoration="@{@drawable/divider_big}"
+                    app:dividerOrientation="@{RecyclerView.HORIZONTAL}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout>
+
+            <com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_10"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/grid_20"
+                android:paddingBottom="@dimen/grid_20"
+                android:visibility="@{viewModel.isRecommendationsLoaded ? View.VISIBLE : View.GONE}"
+                app:isIntercept="@{viewModel.isRecommendationsProcessing}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/home_side_padding"
+                    android:paddingEnd="@dimen/home_side_padding"
+                    android:paddingBottom="@dimen/grid_20">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/home_personal_recommendations"
+                        android:textAppearance="@style/TextAppearance.Large.Bold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.Clickable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/all"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.Light.Blue"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recommendationsListRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:paddingStart="@dimen/home_side_padding"
+                    android:paddingEnd="@dimen/home_side_padding"
+                    app:dividerDecoration="@{@drawable/divider_big}"
+                    app:dividerOrientation="@{RecyclerView.HORIZONTAL}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout>
+
+            <com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_10"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/grid_20"
+                android:paddingBottom="@dimen/grid_20"
+                android:visibility="@{viewModel.isNoveltiesLoaded ? View.VISIBLE : View.GONE}"
+                app:isIntercept="@{viewModel.isNoveltiesProcessing}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/home_side_padding"
+                    android:paddingEnd="@dimen/home_side_padding"
+                    android:paddingBottom="@dimen/grid_20">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/home_novelty"
+                        android:textAppearance="@style/TextAppearance.Large.Bold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.Clickable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/all"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.Light.Blue"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/noveltyListRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:paddingStart="@dimen/home_side_padding"
+                    android:paddingEnd="@dimen/home_side_padding"
+                    app:dividerDecoration="@{@drawable/divider_big}"
+                    app:dividerOrientation="@{RecyclerView.HORIZONTAL}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout>
+
+            <com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_10"
+                android:background="@color/colorPrimaryBackgroundGray"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/grid_20"
+                android:paddingBottom="@dimen/grid_20"
+                android:visibility="@{viewModel.isBestsellersLoaded ? View.VISIBLE : View.GONE}"
+                app:isIntercept="@{viewModel.isBestsellersProcessing}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/home_side_padding"
+                    android:paddingEnd="@dimen/home_side_padding"
+                    android:paddingBottom="@dimen/grid_20">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/home_bestsellers"
+                        android:textAppearance="@style/TextAppearance.Large.Bold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.Clickable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/all"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.Light.Blue"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/bestsellersListRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:paddingStart="@dimen/home_side_padding"
+                    android:paddingEnd="@dimen/home_side_padding"
+                    app:dividerDecoration="@{@drawable/divider_big}"
+                    app:dividerOrientation="@{RecyclerView.HORIZONTAL}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout>
+
+            <com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_10"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/grid_20"
+                android:paddingBottom="@dimen/grid_20"
+                android:visibility="@{viewModel.isAuthorsLoaded ? View.VISIBLE : View.GONE}"
+                app:isIntercept="@{viewModel.isAuthorsProcessing}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/home_side_padding"
+                    android:paddingEnd="@dimen/home_side_padding"
+                    android:paddingBottom="@dimen/grid_20">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/home_popular_authors"
+                        android:textAppearance="@style/TextAppearance.Large.Bold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.Clickable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/all"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.Light.Blue"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/authorsListRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:paddingStart="@dimen/home_side_padding"
+                    android:paddingEnd="@dimen/home_side_padding"
+                    app:dividerDecoration="@{@drawable/divider_big}"
+                    app:dividerOrientation="@{RecyclerView.HORIZONTAL}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout>
+
+            <com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_10"
+                android:background="@color/colorPrimaryBackgroundGray"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/grid_20"
+                android:paddingBottom="@dimen/grid_20"
+                android:visibility="@{viewModel.isCompilationsLoaded ? View.VISIBLE : View.GONE}"
+                app:isIntercept="@{viewModel.isCompilationsProcessing}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/home_side_padding"
+                    android:paddingEnd="@dimen/home_side_padding"
+                    android:paddingBottom="@dimen/grid_20">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/home_popular_compilation"
+                        android:textAppearance="@style/TextAppearance.Large.Bold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.Clickable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/all"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.Light.Blue"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/compilationListRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:paddingStart="@dimen/home_side_padding"
+                    android:paddingEnd="@dimen/home_side_padding"
+                    app:dividerDecoration="@{@drawable/divider_big}"
+                    app:dividerOrientation="@{RecyclerView.HORIZONTAL}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

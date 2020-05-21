@@ -1,0 +1,807 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+        <import type="android.text.TextUtils" />
+        <import type="androidx.recyclerview.widget.RecyclerView" />
+
+        <variable
+            name="viewModel"
+            type="com.infoshell.presentation.ui.catalog.product.ProductViewModel" />
+
+        <variable
+            name="product"
+            type="com.infoshell.presentation.enity.DisplayProduct" />
+
+        <variable
+            name="handler"
+            type="com.infoshell.presentation.ui.catalog.product.ProductFragment" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context="com.infoshell.presentation.ui.catalog.product.ProductFragment">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/frameActionbar"
+                style="@style/product_padding"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/grid_20"
+                android:orientation="vertical">
+
+                <com.infoshell.presentation.ui.custom.viewpager.LoopingViewPager
+                    android:id="@+id/productCoverVP"
+                    android:layout_width="@dimen/product_photo_width"
+                    android:layout_height="@dimen/product_photo_height"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/grid_25"
+                    android:clipToPadding="false"
+                    app:autoScroll="false"
+                    app:isInfinite="false"
+                    app:isScaleSideItems="true"
+                    app:wrap_content="false">
+
+                </com.infoshell.presentation.ui.custom.viewpager.LoopingViewPager>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/coverIndicatorTL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/grid_20"
+                    app:tabBackground="@drawable/tab_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_20"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-black"
+                    android:letterSpacing="-0.03"
+                    android:lineSpacingExtra="@dimen/text_size_2"
+                    android:maxLines="2"
+                    android:text="@{product.name}"
+                    android:textAppearance="@style/TextAppearance.Light"
+                    android:textColor="@color/colorPrimaryBlack"
+                    android:textSize="@dimen/text_size_24"
+                    android:textStyle="normal" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:fontFamily="sans-serif"
+                    android:lineSpacingExtra="@dimen/text_size_7"
+                    android:text="@{product.author}"
+                    android:textColor="@color/colorPrimaryGrey"
+                    android:textSize="@dimen/text_size_15"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_25">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/newPriceACT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/grid_8"
+                        android:layout_marginBottom="@dimen/grid_6"
+                        android:ellipsize="end"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="-1sp"
+                        android:maxLines="1"
+                        android:text="@{String.format(@string/currency, product.price)}"
+                        android:textAppearance="@style/TextAppearance.Light"
+                        android:textColor="#242424"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/oldPriceACT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_6"
+                        android:layout_marginBottom="@dimen/grid_6"
+                        android:ellipsize="end"
+                        android:fontFamily="sans-serif"
+                        android:letterSpacing="0.01"
+                        android:lineSpacingExtra="-1sp"
+                        android:maxLines="1"
+                        android:text="@{String.format(@string/currency, product.fullPrice)}"
+                        android:textAppearance="@style/TextAppearance.Light.Grey"
+                        android:textColor="@color/colorPrimaryGrey"
+                        android:textSize="@dimen/text_size_17"
+                        android:textStyle="normal"
+                        android:visibility="@{(product.promo == 0) ? View.GONE : View.VISIBLE}"
+                        app:strikeThrough="@{true}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_10"
+                        android:fontFamily="sans-serif"
+                        android:lineSpacingExtra="@dimen/text_size_7"
+                        android:text="@string/product_discount_title"
+                        android:textColor="@color/colorBlackoutBlack"
+                        android:textSize="@dimen/text_size_15"
+                        android:textStyle="normal"
+                        android:visibility="@{(product.promo == 0) ? View.GONE : View.VISIBLE}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_5"
+                        android:background="@drawable/bg_red_tag"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:lineSpacingExtra="8sp"
+                        android:minWidth="@dimen/home_product_tag_width"
+                        android:minHeight="@dimen/home_product_tag_height"
+                        android:padding="@dimen/grid_4"
+                        android:text="@{String.format(@string/percent_prefix, product.promo)}"
+                        android:textColor="@color/colorPrimaryWhite"
+                        android:textSize="@dimen/text_size_14"
+                        android:textStyle="normal"
+                        android:visibility="@{(product.promo == 0) ? View.GONE : View.VISIBLE}" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/basketACB"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/catalog_button_height"
+                    android:layout_marginTop="@dimen/grid_10"
+                    android:background="@drawable/bg_green_tag"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:lineSpacingExtra="6sp"
+                    android:maxLines="1"
+                    android:text="Добавить в корзину"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryWhite"
+                    android:textSize="@dimen/text_size_16"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_20"
+                    android:orientation="vertical">
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/dividerHorizontal" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/grid_13"
+                        android:paddingBottom="@dimen/grid_13">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.appcompat.widget.AppCompatRatingBar
+                                android:id="@+id/starRating"
+                                style="@style/StarRating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:numStars="5"
+                                android:rating="3"
+                                android:stepSize="1" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/grid_5"
+                                android:fontFamily="sans-serif-medium"
+                                android:lineSpacingExtra="1.8sp"
+                                android:text="4.0"
+                                android:textColor="@color/colorPrimaryBlack"
+                                android:textSize="@dimen/text_size_18"
+                                android:textStyle="normal"
+                                app:layout_constraintStart_toEndOf="@+id/starRating"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/grid_30"
+                                android:background="@drawable/ic_speech_balloon"
+                                android:visibility="@{(product.countReviews == 0) ? View.GONE : View.VISIBLE}" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/grid_8"
+                                android:fontFamily="sans-serif"
+                                android:lineSpacingExtra="@dimen/text_size_3"
+                                android:text="@string/product_reviews"
+                                android:textColor="@color/colorPrimaryBlue"
+                                android:textSize="@dimen/text_size_13"
+                                android:textStyle="bold" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/grid_11"
+                                android:fontFamily="sans-serif"
+                                android:gravity="end"
+                                android:lineSpacingExtra="@dimen/text_size_17"
+                                android:text='@{"("+product.countReviews+")"}'
+                                android:textColor="@color/colorPrimaryGrey"
+                                android:textSize="@dimen/text_size_15"
+                                android:textStyle="normal"
+                                android:visibility="@{(product.countReviews == 0) ? View.GONE : View.VISIBLE}" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/dividerHorizontal" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_20"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="0sp"
+                    android:visibility="@{(TextUtils.isEmpty(product.detailText) )? View.GONE : View.VISIBLE}"
+                    android:text="@string/product_about_product"
+                    android:textColor="@color/colorPrimaryBlack"
+                    android:textSize="@dimen/grid_22"
+                    android:textStyle="normal" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/detalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="@dimen/text_size_8"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:text="@{product.detailText}"
+                        android:textColor="@color/colorPrimaryBlack"
+                        android:textSize="@dimen/text_size_16"
+                        android:textStyle="normal"
+                        app:trimLength="8" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/detailTextMoreTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:fontFamily="sans-serif"
+                        android:lineSpacingExtra="3sp"
+                        android:text="Ещё"
+                        android:onClick="@{(view)-> handler.handleDatailText(view)}"
+                        android:textColor="#3d70b2"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_29"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:paddingLeft="@dimen/text_size_12"
+                    android:paddingTop="@dimen/text_size_16"
+                    android:paddingRight="@dimen/text_size_12"
+                    android:paddingBottom="@dimen/text_size_16">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/acceptTV"
+                        android:layout_width="@dimen/text_size_16"
+                        android:layout_height="@dimen/text_size_16"
+                        android:layout_marginTop="@dimen/grid_2"
+                        android:background="@drawable/ic_green"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_8"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.01"
+                        android:lineSpacingExtra="@dimen/text_size_7"
+                        android:text="В наличии"
+                        android:textColor="@color/colorPrimaryGreenLight1"
+                        android:textSize="@dimen/text_size_15"
+                        android:textStyle="normal"
+                        app:layout_constraintStart_toEndOf="@+id/acceptTV"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/shopCartTV"
+                        android:layout_width="@dimen/text_size_16"
+                        android:layout_height="@dimen/text_size_16"
+                        android:layout_marginTop="@dimen/grid_2"
+                        android:background="@drawable/ic_shop_cart"
+                        app:layout_constraintEnd_toStartOf="@+id/numberOfPurchasesTV"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/numberOfPurchasesTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_8"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="end"
+                        android:letterSpacing="0.04"
+                        android:lineSpacingExtra="7sp"
+                        android:text='@{product.numberOfPurchases + " раз купили"}'
+                        android:textColor="#7d8290"
+                        android:textSize="15sp"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_29"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/locationTV"
+                        android:layout_width="@dimen/text_size_15"
+                        android:layout_height="@dimen/text_size_15"
+                        android:background="@drawable/ic_pin"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/deliveryTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_23"
+                        android:fontFamily="sans-serif-medium"
+                        android:lineSpacingExtra="@dimen/text_size_9"
+                        android:text="Доставка в г."
+                        android:textColor="@color/colorPrimaryGrey"
+                        android:textSize="@dimen/text_size_13"
+                        android:textStyle="normal"
+                        app:layout_constraintStart_toEndOf="@+id/locationTV"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:lineSpacingExtra="@dimen/text_size_8"
+                        android:layout_marginLeft="@dimen/grid_8"
+                        android:text="Москву"
+                        android:textColor="@color/colorPrimaryBlack"
+                        android:textSize="@dimen/text_size_15"
+                        android:textStyle="normal"
+                        app:layout_constraintStart_toEndOf="@+id/deliveryTV"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:lineSpacingExtra="3sp"
+                        android:text="@string/product_change"
+                        android:textColor="@color/colorPrimaryBlue"
+                        android:textSize="@dimen/text_size_13"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_29"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="@dimen/text_size_15"
+                        android:layout_height="@dimen/text_size_15"
+                        android:background="@drawable/ic_date"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:maxWidth="@dimen/product_delivery_text"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_20"
+                        android:fontFamily="sans-serif-medium"
+                        android:lineSpacingExtra="@dimen/text_size_9"
+                        android:text="Ближайшая дата доставки:"
+                        android:textColor="@color/colorPrimaryGrey"
+                        android:textSize="@dimen/text_size_13"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_10"
+                        android:fontFamily="sans-serif-medium"
+                        android:lineSpacingExtra="@dimen/text_size_8"
+                        android:text="19 января"
+                        android:textColor="@color/colorPrimaryBlack"
+                        android:textSize="@dimen/text_size_14"
+                        android:textStyle="normal" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_26"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:background="@drawable/action_product"
+                    android:paddingTop="@dimen/grid_10"
+                    android:paddingBottom="@dimen/grid_10">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif"
+                        android:lineSpacingExtra="7sp"
+                        android:text="Бесплатно при заказе"
+                        android:textColor="#242424"
+                        android:textSize="15sp"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginStart="@dimen/grid_8"
+                        android:lineSpacingExtra="8sp"
+                        android:text="1999 ₽"
+                        android:textColor="#242424"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/grid_20"
+                    android:background="?android:attr/dividerHorizontal" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/grid_20"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="@dimen/text_size_15"
+                        android:layout_height="@dimen/text_size_15"
+                        android:background="@drawable/ic_danger" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:layout_marginStart="@dimen/grid_12"
+                        android:lineSpacingExtra="@dimen/text_size_8"
+                        android:text="Акции на данный товар не распространяются"
+                        android:textColor="@color/colorPrimaryGrey"
+                        android:textSize="@dimen/text_size_13"
+                        android:textStyle="bold" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_30"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="0sp"
+                    android:text="Характеристики"
+                    android:textColor="@color/colorPrimaryBlack"
+                    android:textSize="@dimen/text_size_22"
+                    android:textStyle="normal" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_24"
+                    >
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="8sp"
+                            android:text="Серия:"
+                            android:textColor="#7d8290"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/grid_10"
+                            android:fontFamily="sans-serif"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="8sp"
+                            android:text="Издательство:"
+                            android:textColor="#7d8290"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/grid_10"
+                            android:fontFamily="sans-serif"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="8sp"
+                            android:text="Год издания:"
+                            android:textColor="#7d8290"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:gravity="end"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="8sp"
+                            android:text="Радзинский"
+                            android:textColor="#242424"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/grid_10"
+                            android:fontFamily="sans-serif"
+                            android:gravity="end"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="8sp"
+                            android:text="Издательство АСТ"
+                            android:textColor="#242424"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/grid_10"
+                            android:fontFamily="sans-serif"
+                            android:gravity="end"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="8sp"
+                            android:text="2008"
+                            android:textColor="#242424"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/grid_24"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="7sp"
+                    android:text="Показать еще"
+                    android:textColor="#3d70b2"
+                    android:textSize="15sp"
+                    android:textStyle="normal" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_22"
+                android:padding="@dimen/grid_20"
+                android:background="@color/colorPrimaryDivider"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/grid_23"
+                android:paddingBottom="@dimen/grid_23">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="0sp"
+                    android:textColor="#242424"
+                    android:textSize="22sp"
+                    android:textStyle="normal"
+                    android:visibility="@{(product.reviews.size != 0) ? View.GONE : View.VISIBLE}"
+                    android:text="Отзывы" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/reviewsRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/reviewsMoreTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_28"
+                    android:textSize="15sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textStyle="normal"
+                    android:textColor="#3d70b2"
+                    android:lineSpacingExtra="7sp"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="center"
+                    android:onClick="@{(view)-> handler.handleReviewsMore(view)}"
+                    android:text="Показать еще 2 отзыва"
+                    />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/grid_16"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/grid_16">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="@dimen/grid_16"
+                        android:layout_height="@dimen/grid_16"
+                        android:background="@drawable/ic_gift"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif"
+                        android:textStyle="bold"
+                        android:textColor="#fe6564"
+                        android:lineSpacingExtra="8sp"
+                        android:gravity="center_horizontal"
+                        android:text="Дарим 200 баллов за отзыв!"
+                        />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:background="@drawable/bg_green_tag"
+                    android:paddingTop="@dimen/grid_14"
+                    android:paddingBottom="@dimen/grid_14"
+                    android:layout_marginTop="@dimen/grid_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:lineSpacingExtra="6sp"
+                    android:gravity="center"
+                    android:text="Написать отзыв"
+                    />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_10"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/grid_20"
+                android:paddingBottom="@dimen/grid_20"
+                android:visibility="@{viewModel.isRecommendationsLoaded ? View.VISIBLE : View.GONE}"
+                app:isIntercept="@{viewModel.isRecommendationsProcessing}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/home_side_padding"
+                    android:paddingEnd="@dimen/home_side_padding"
+                    android:paddingBottom="@dimen/grid_20">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/home_personal_recommendations"
+                        android:textAppearance="@style/TextAppearance.Large.Bold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.Clickable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/all"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.Light.Blue"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recommendationsListRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:paddingStart="@dimen/home_side_padding"
+                    android:paddingEnd="@dimen/home_side_padding"
+                    app:dividerDecoration="@{@drawable/divider_big}"
+                    app:dividerOrientation="@{RecyclerView.HORIZONTAL}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout>
+
+        </com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</layout>

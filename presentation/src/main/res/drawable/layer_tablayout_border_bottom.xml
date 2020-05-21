@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="@dimen/tablayout_indicator_height"
+                android:color="@color/colorPrimaryDivider" />
+            <solid android:color="@color/colorPrimaryBackground" />
+        </shape>
+    </item>
+    <item android:bottom="@dimen/tablayout_indicator_height">
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="@dimen/tablayout_indicator_height"
+                android:color="@color/colorPrimaryBackground" />
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+</layer-list>

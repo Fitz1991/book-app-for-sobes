@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="promo"
+            type="com.infoshell.presentation.enity.DisplayPromotion" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        style="@style/CardView.InputForm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_blue_bright"
+        android:padding="2dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/bannerIV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true" />
+    </androidx.cardview.widget.CardView>
+</layout>

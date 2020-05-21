@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+        <import type="com.infoshell.presentation.ui.catalog.category_products.CategoryProductsAdapter.ActionType" />
+
+        <variable
+            name="onClickHandler"
+            type="com.infoshell.presentation.ui.catalog.category_products.CategoryProductsAdapter.OnItemClickListener" />
+
+        <variable
+            name="product"
+            type="com.infoshell.presentation.enity.DisplayProduct" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/grid_10"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/productIV"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/catalog_product_picture_height"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{(view)-> onClickHandler.handle(view,product,ActionType.ITEM_CLICK)}"
+            app:loadUrl="@{product.image}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_red_tag"
+            android:gravity="center"
+            android:minWidth="@dimen/home_product_tag_width"
+            android:minHeight="@dimen/home_product_tag_height"
+            android:padding="@dimen/grid_4"
+            android:text="@{String.format(@string/percent_prefix, product.promo)}"
+            android:textColor="@color/colorPrimaryWhite"
+            android:translationY="@dimen/grid_14"
+            android:visibility="@{(product.promo == 0) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/productIV"
+            app:layout_constraintStart_toStartOf="@+id/productIV" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/authorLLC"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_26"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/newPriceACT"
+            app:layout_constraintEnd_toEndOf="@+id/productIV"
+            app:layout_constraintStart_toStartOf="@+id/productIV"
+            app:layout_constraintTop_toBottomOf="@+id/productIV">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/grid_8"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="@dimen/text_size_3"
+                android:maxLines="2"
+                android:text="@{product.name}"
+                android:textAppearance="@style/TextAppearance.Light"
+                android:textColor="@color/colorPrimaryBlack"
+                android:textSize="@dimen/text_size_14"
+                android:textStyle="normal" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.01"
+                android:lineSpacingExtra="2sp"
+                android:maxLines="1"
+                android:text="@{product.author}"
+                android:textAppearance="@style/TextAppearance.Light.Grey"
+                android:textColor="@color/colorPrimaryGrey"
+                android:textSize="@dimen/text_size_12"
+                android:textStyle="normal" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/newPriceACT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/grid_8"
+            android:layout_marginBottom="@dimen/grid_6"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="-0.04"
+            android:maxLines="1"
+            android:text="@{String.format(@string/currency, product.price)}"
+            android:textAppearance="@style/TextAppearance.Light"
+            app:layout_constraintBottom_toTopOf="@+id/basketACB"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/oldPriceACT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_6"
+            android:layout_marginBottom="@dimen/grid_6"
+            android:ellipsize="end"
+            android:letterSpacing="0.01"
+            android:maxLines="1"
+            android:text="@{String.format(@string/currency, product.fullPrice)}"
+            android:textAppearance="@style/TextAppearance.Light.Grey"
+            android:visibility="@{(product.promo == 0) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/basketACB"
+            app:layout_constraintLeft_toRightOf="@+id/newPriceACT"
+            app:strikeThrough="@{true}" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/basketACB"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/catalog_button_height"
+            android:background="@drawable/bg_green_tag"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/btn_to_basket"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryWhite"
+            android:textSize="@dimen/text_size_14"
+            android:textStyle="bold"
+            android:onClick="@{(view)-> onClickHandler.handle(view,product,ActionType.ADD_TO_BASKET)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/productIV"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/productIV" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

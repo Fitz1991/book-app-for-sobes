@@ -1,0 +1,92 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="android.text.TextUtils" />
+        <import type="androidx.recyclerview.widget.RecyclerView" />
+
+        <variable
+            name="viewModel"
+            type="com.infoshell.presentation.ui.catalog.category_products.CategoryProductsViewModel" />
+        <variable
+            name="productRequestStatus"
+            type="com.infoshell.presentation.enity.RequestStatus" />
+    </data>
+    <com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout
+        android:id="@+id/frameActionbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/grid_20"
+        android:orientation="vertical"
+        android:visibility="@{productRequestStatus.isLoaded() ? View.VISIBLE : View.GONE}"
+        app:isIntercept="@{productRequestStatus.isProcessing()}"
+        tools:context="com.infoshell.presentation.ui.catalog.category.CategoryFragment">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/Actionbar.Title.Bold.Black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="sans-serif-medium"
+            android:lineSpacingExtra="8sp"
+            android:text="@{viewModel.categoryName}"
+            android:textColor="@color/colorPrimaryBlack"
+            android:textSize="@dimen/text_size_20"
+            android:textStyle="normal" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_14"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_20"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
+                android:lineSpacingExtra="6sp"
+                android:text='@{"Книг " + viewModel.countProduct}'
+                android:textAppearance="@style/TextAppearance.Light.Grey"
+                android:textSize="@dimen/text_size_15"
+                android:textStyle="normal" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_20"
+                android:layout_weight="0"
+                android:fontFamily="sans-serif-medium"
+                android:lineSpacingExtra="6sp"
+                android:text="@string/btn_checkout"
+                android:textAppearance="@style/TextAppearance.Light.Grey"
+                android:textSize="@dimen/text_size_15"
+                android:textStyle="normal" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_11"
+                android:layout_marginEnd="@dimen/grid_20"
+                android:layout_weight="0"
+                android:background="@drawable/ic_close"
+                android:gravity="center"
+                android:minWidth="@dimen/grid_24"
+                android:minHeight="@dimen/grid_24" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/productCategoryRV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/grid_10"
+            android:layout_marginTop="@dimen/grid_18"
+            android:layout_marginEnd="@dimen/grid_10"
+            android:overScrollMode="never" />
+
+    </com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout>
+</layout>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:mask="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.infoshell.presentation.ui.profile.unauthorized.registration.RegistrationViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/grid_20"
+            android:paddingEnd="@dimen/grid_20"
+            app:isIntercept="@{viewModel.isRegistrationProcessing}">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TextAppearance.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login_page_title" />
+
+            <androidx.cardview.widget.CardView
+                style="@style/CardView.InputForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/shape_form_divider_grey"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/grid_20"
+                    android:paddingTop="@dimen/grid_12"
+                    android:paddingEnd="@dimen/grid_20"
+                    android:paddingBottom="@dimen/grid_12"
+                    android:showDividers="middle">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayout.Normal"
+                        errorMessage="@{viewModel.emailError}"
+                        android:layout_marginBottom="@dimen/grid_8"
+                        android:hint="@string/hint_email"
+                        android:theme="@style/TextInputLayoutAppearance.Black">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:paddingTop="@dimen/grid_12"
+                            android:paddingBottom="@dimen/grid_8"
+                            android:singleLine="true"
+                            android:text="@={viewModel.registerCredential.email}"
+                            android:textAppearance="@style/TextAppearance.Medium"
+                            tools:text="@string/hint_email" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayout.Normal"
+                        errorMessage="@{viewModel.nameError}"
+                        android:layout_marginTop="@dimen/grid_8"
+                        android:layout_marginBottom="@dimen/grid_8"
+                        android:hint="@string/hint_name_surname"
+                        android:theme="@style/TextInputLayoutAppearance.Black">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:inputType="textCapWords"
+                            android:maxLines="1"
+                            android:paddingTop="@dimen/grid_12"
+                            android:paddingBottom="@dimen/grid_8"
+                            android:singleLine="true"
+                            android:text="@={viewModel.registerCredential.name}"
+                            android:textAppearance="@style/TextAppearance.Medium"
+                            tools:text="@string/hint_name_surname" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayout.Normal"
+                        errorMessage="@{viewModel.phoneError}"
+                        android:layout_marginTop="@dimen/grid_8"
+                        android:hint="@string/hint_phone"
+                        android:theme="@style/TextInputLayoutAppearance.Black">
+
+                        <br.com.sapereaude.maskedEditText.MaskedEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:inputType="phone"
+                            android:maxLines="1"
+                            android:paddingTop="@dimen/grid_12"
+                            android:paddingBottom="@dimen/grid_8"
+                            android:singleLine="true"
+                            mask:allowed_chars="1234567890"
+                            mask:mask="+7 ### ### ## ##"
+                            android:hint="XXX XXX XX XX"
+                            app:keep_hint="true"
+                            android:text="@={viewModel.registerCredential.phone}"
+                            android:textAppearance="@style/TextAppearance.Medium"
+                            tools:text="@string/hint_phone" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_20"
+                android:layout_marginTop="@dimen/grid_20"
+                android:layout_marginEnd="@dimen/grid_20">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRegister"
+                    style="@style/Button.Green"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="@{viewModel.isRegistrationProcessing}"
+                    android:onClick="@{() -> viewModel.register()}"
+                    android:text="@string/btn_register" />
+
+                <ProgressBar
+                    style="@style/ProgressBarWhite"
+                    android:layout_width="@dimen/grid_24"
+                    android:layout_height="@dimen/grid_24"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="@dimen/grid_8"
+                    android:translationZ="@dimen/grid_24"
+                    android:visibility="@{viewModel.isRegistrationProcessing ? View.VISIBLE : View.GONE}" />
+
+            </FrameLayout>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_20"
+                android:buttonTint="@color/colorPrimaryGreen"
+                android:checked="@={viewModel.registerCredential.shouldGetNews}"
+                android:text="@string/registration_receive_news"
+                android:textAppearance="@style/TextAppearance.Light.Grey"
+                android:textColor="@color/colorPrimaryGrey" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAgreement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_20"
+                android:layout_marginBottom="@dimen/grid_20"
+                android:textAppearance="@style/TextAppearance.Light.Grey"
+                tools:text="@string/registration_agreement" />
+
+        </com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout>
+
+    </ScrollView>
+
+</layout>

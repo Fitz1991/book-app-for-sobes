@@ -1,0 +1,51 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.infoshell.presentation.ui.catalog.category.CategoryViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.infoshell.presentation.ui.catalog.category.CategoryFragment">
+
+        <FrameLayout
+            android:id="@+id/frameActionbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/Actionbar.Title.Bold.Black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/actionbar_catalog" />
+
+        </FrameLayout>
+
+        <com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:isIntercept="@{viewModel.isCategoryProcessing}"
+            app:layout_constraintTop_toBottomOf="@+id/frameActionbar">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/viewEmployees"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

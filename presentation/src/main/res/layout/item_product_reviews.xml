@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="review"
+            type="com.infoshell.domain.entity.Review" />
+<!--        <variable-->
+<!--            name="onClickHandler"-->
+<!--            type="com.infoshell.presentation.ui.catalog.category.CategoryDataAdapter.Companion.OnItemClickListener" />-->
+
+    </data>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_20"
+        android:background="@drawable/reviews_container"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            >
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/starRatingRT"
+                style="@style/StarRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:layout_gravity="center"
+                android:rating="4"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:stepSize="1"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/starRatingNumberTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_5"
+                android:fontFamily="sans-serif-medium"
+                android:lineSpacingExtra="1.8sp"
+                android:layout_gravity="center"
+                android:textColor="@color/colorPrimaryBlack"
+                android:textSize="@dimen/text_size_18"
+                android:textStyle="normal"
+                app:layout_constraintStart_toEndOf="@+id/starRatingRT"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="4" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/dateRatingTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:textColor="#7d8290"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="12sp"
+                android:gravity="end"
+                tools:text="@{review.date}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/authorNameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="normal"
+            android:textColor="#242424"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="7sp"
+            android:text="@{review.authorName}"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/reviewTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="#242424"
+            android:lineSpacingExtra="5sp"
+            android:maxLines="3"
+            android:text="@{review.reviewBrief}"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/readMoreTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
+            android:textColor="#3d70b2"
+            android:letterSpacing="0.02"
+            android:lineSpacingExtra="4sp"
+            tools:text="Читать далее"
+            />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "263785212808",
+    "firebase_url": "https://book24-d838f.firebaseio.com",
+    "project_id": "book24-d838f",
+    "storage_bucket": "book24-d838f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263785212808:android:6aa834be966ab213e7e83d",
+        "android_client_info": {
+          "package_name": "com.infoshell.book24"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263785212808-j2s4f1q6ff6i3tvtgn000lskmpdec8gd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.infoshell.book24",
+            "certificate_hash": "3b21615ca1c3f1ec64b58eca73d06f6d410022df"
+          }
+        },
+        {
+          "client_id": "263785212808-tr4tjks8uigamgn3ksjku0b2urjq0k31.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs2B4j8svF3YJArxjiBvQcAGqzAahs_aQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263785212808-tr4tjks8uigamgn3ksjku0b2urjq0k31.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

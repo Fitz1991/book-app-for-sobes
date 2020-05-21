@@ -1,0 +1,557 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="androidx.recyclerview.widget.RecyclerView" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.infoshell.presentation.ui.basket.BasketViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        tools:context="com.infoshell.presentation.ui.basket.BasketFragment">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/grid_20"
+            android:paddingBottom="@dimen/grid_20">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_20"
+                android:layout_marginEnd="@dimen/grid_20"
+                android:fontFamily="sans-serif-medium"
+                android:lineSpacingExtra="8sp"
+                android:text="@string/basket_title"
+                android:textColor="@color/colorPrimaryBlack"
+                android:textSize="@dimen/text_size_20"
+                android:textStyle="normal" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_18"
+                android:orientation="vertical"
+                android:visibility="@{viewModel.isBasketHasItems ? View.GONE : View.VISIBLE}">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/basket_empty_image_size"
+                    android:layout_height="@dimen/basket_empty_image_size"
+                    android:layout_gravity="center_horizontal"
+                    app:srcCompat="@drawable/ic_basket_empty" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/grid_20"
+                    android:layout_marginTop="@dimen/grid_6"
+                    android:layout_marginEnd="@dimen/grid_20"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:letterSpacing="-0.03"
+                    android:lineSpacingExtra="4sp"
+                    android:text="@string/basket_empty_title"
+                    android:textColor="@color/colorPrimaryBlack"
+                    android:textSize="@dimen/text_size_22"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvEmptyBasket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/grid_30"
+                    android:layout_marginTop="@dimen/grid_6"
+                    android:layout_marginEnd="@dimen/grid_30"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:lineSpacingExtra="5sp"
+                    android:textColor="@color/colorPrimaryBlack"
+                    android:textSize="@dimen/text_size_15"
+                    android:textStyle="normal" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnCatalog"
+                    style="@style/Button.Bordered"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_20"
+                    android:layout_marginTop="@dimen/grid_20"
+                    android:layout_marginEnd="@dimen/grid_20"
+                    android:text="@string/basket_go_to_catalog_button"
+                    android:textStyle="bold" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_18"
+                android:orientation="vertical"
+                android:visibility="@{viewModel.isBasketHasItems ? View.VISIBLE : View.GONE}"
+                app:isIntercept="@{viewModel.isBasketProcessing}">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_20"
+                    android:layout_marginEnd="@dimen/grid_20"
+                    android:fontFamily="sans-serif-medium"
+                    android:lineSpacingExtra="6sp"
+                    android:text="@{String.format(@string/basket_products_count, viewModel.basket.itemsCount)}"
+                    android:textColor="#7d8290"
+                    android:textSize="@dimen/text_size_15"
+                    android:textStyle="normal" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/basketRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_18"
+                    android:layout_marginTop="@dimen/grid_26"
+                    android:layout_marginEnd="@dimen/grid_18"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:dividerDecoration="@{@drawable/divider_big}"
+                    app:dividerOrientation="@{RecyclerView.VERTICAL}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_20"
+                    android:layout_marginTop="@dimen/text_size_20"
+                    android:layout_marginEnd="@dimen/grid_20">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView2"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/applyPromocodeBtn"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/applyPromocodeBtn"
+                        app:srcCompat="@drawable/ic_promocode" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_11"
+                        android:layout_marginEnd="@dimen/grid_6"
+                        app:layout_constraintBottom_toBottomOf="@+id/applyPromocodeBtn"
+                        app:layout_constraintEnd_toStartOf="@+id/applyPromocodeBtn"
+                        app:layout_constraintStart_toEndOf="@+id/appCompatImageView2"
+                        app:layout_constraintTop_toTopOf="@+id/applyPromocodeBtn">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:hint="@string/basket_promocode"
+                            android:singleLine="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/applyPromocodeBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/catalog_button_height"
+                        android:layout_marginBottom="@dimen/text_size_14"
+                        android:background="@drawable/bg_green_tag"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center"
+                        android:paddingStart="@dimen/grid_10"
+                        android:paddingEnd="@dimen/grid_10"
+                        android:text="@string/btn_apply"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryWhite"
+                        android:textSize="@dimen/text_size_13"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/view2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="@color/colorPrimaryGreyLight"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView3"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/applyMnogoruBtn"
+                        app:srcCompat="@drawable/ic_mnogoru" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/grid_6"
+                        app:layout_constraintBottom_toBottomOf="@+id/applyMnogoruBtn"
+                        app:layout_constraintEnd_toStartOf="@+id/applyMnogoruBtn"
+                        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+                        app:layout_constraintTop_toTopOf="@+id/applyMnogoruBtn">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:hint="@string/basket_card_mnogoru" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/applyMnogoruBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/catalog_button_height"
+                        android:layout_marginTop="@dimen/text_size_14"
+                        android:background="@drawable/bg_green_tag"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:paddingStart="@dimen/grid_10"
+                        android:paddingEnd="@dimen/grid_10"
+                        android:text="@string/btn_apply"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryWhite"
+                        android:textSize="@dimen/text_size_13"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_20"
+                    android:layout_marginTop="@dimen/grid_20"
+                    android:layout_marginEnd="@dimen/grid_20"
+                    android:background="@drawable/bg_light_yellow_tag"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/grid_36"
+                    android:paddingTop="@dimen/grid_13"
+                    android:paddingEnd="@dimen/grid_36"
+                    android:paddingBottom="@dimen/grid_13"
+                    android:text="@{String.format(@string/basket_free_delivery_message, viewModel.basket.orderPriceForFreeDelivery)}"
+                    android:visibility="@{viewModel.isDeliveryFree() ? View.GONE : View.VISIBLE}" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_20"
+                    android:background="@color/colorPrimaryDivider"
+                    android:orientation="vertical"
+                    android:padding="@dimen/grid_20">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/grid_6"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif-medium"
+                            android:letterSpacing="0.01"
+                            android:lineSpacingExtra="10sp"
+                            android:maxLines="1"
+                            android:text="@{String.format(@string/basket_products_count, viewModel.basket.itemsCount)}"
+                            android:textColor="@color/colorPrimaryGrey"
+                            android:textSize="@dimen/text_size_14"
+                            android:textStyle="normal" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="end"
+                            android:letterSpacing="0.01"
+                            android:lineSpacingExtra="10sp"
+                            android:maxLines="1"
+                            android:text="@{String.format(@string/basket_product_weight, viewModel.basket.orderWeight)}"
+                            android:textColor="@color/colorPrimaryGrey"
+                            android:textSize="@dimen/text_size_14"
+                            android:textStyle="normal" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_14"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:fontFamily="sans-serif"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="8sp"
+                            android:text="@string/basket_total_price_without_delivery_title"
+                            android:textColor="@color/colorPrimaryBlack"
+                            android:textSize="@dimen/text_size_16"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="wrap_content"
+                            android:layout_height="3dp"
+                            android:layout_margin="@dimen/grid_6"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_dotted_line" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif"
+                            android:gravity="end"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="2sp"
+                            android:maxLines="1"
+                            android:text="@{String.format(@string/currency, viewModel.basket.totalPrice)}"
+                            android:textColor="@color/colorPrimaryBlack"
+                            android:textSize="@dimen/text_size_22"
+                            android:textStyle="bold" />
+
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_8"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:fontFamily="sans-serif"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="8sp"
+                            android:text="@string/basket_full_price_title"
+                            android:textColor="@color/colorPrimaryGrey"
+                            android:textSize="@dimen/text_size_16"
+                            android:textStyle="normal" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:layout_margin="@dimen/grid_6"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_dotted_line" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="end"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="8sp"
+                            android:maxLines="1"
+                            android:text="@{String.format(@string/currency, viewModel.basket.fullOrderPrice)}"
+                            android:textColor="@color/colorPrimaryBlack"
+                            android:textSize="@dimen/text_size_16"
+                            android:textStyle="normal" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_8"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="@{viewModel.isDiscountActive() ? View.VISIBLE : View.GONE}">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:fontFamily="sans-serif"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="8sp"
+                            android:text="@string/basket_discount_title"
+                            android:textColor="@color/colorPrimaryGrey"
+                            android:textSize="@dimen/text_size_16"
+                            android:textStyle="normal" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/grid_12"
+                            android:background="@drawable/bg_red_tag"
+                            android:gravity="center"
+                            android:minWidth="@dimen/home_product_tag_width"
+                            android:minHeight="@dimen/home_product_tag_height"
+                            android:padding="@dimen/grid_4"
+                            android:text="@{String.format(@string/percent_prefix_decimal, viewModel.basket.discountPercent)}"
+                            android:textColor="@color/colorPrimaryWhite"
+                            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"
+                            app:layout_constraintStart_toStartOf="@+id/appCompatImageView" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:layout_margin="@dimen/grid_6"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_dotted_line" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="end"
+                            android:letterSpacing="0.01"
+                            android:lineSpacingExtra="8sp"
+                            android:maxLines="1"
+                            android:text="@{String.format(@string/minus_prefix_string, String.format(@string/currency, viewModel.basket.discount))}"
+                            android:textColor="@color/colorPrimaryGrey"
+                            android:textSize="@dimen/text_size_16"
+                            android:textStyle="normal" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_8"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="@{viewModel.isGiftBonusActive() ? View.VISIBLE : View.GONE}">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:lineSpacingExtra="8sp"
+                            android:text="@string/basket_gift_bonus_title"
+                            android:textColor="@color/colorPrimaryGrey"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:layout_margin="@dimen/grid_6"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_dotted_line" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:fontFamily="sans-serif"
+                            android:gravity="end"
+                            android:letterSpacing="0.01"
+                            android:lineSpacingExtra="6sp"
+                            android:text="@{String.format(@string/plus_prefix, viewModel.basket.giftsBonus)}"
+                            android:textColor="@color/colorPrimaryGreen"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnContinueOrder"
+                    style="@style/Button.Green"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_20"
+                    android:layout_marginTop="@dimen/grid_20"
+                    android:layout_marginEnd="@dimen/grid_20"
+                    android:text="@string/btn_continue_order" />
+
+            </com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout>
+
+            <com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_10"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/grid_20"
+                android:paddingBottom="@dimen/grid_20"
+                android:visibility="@{viewModel.isRecommendationsLoaded ? View.VISIBLE : View.GONE}"
+                app:isIntercept="@{viewModel.isRecommendationsProcessing}">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/home_side_padding"
+                    android:paddingEnd="@dimen/home_side_padding"
+                    android:paddingBottom="@dimen/grid_20">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/home_personal_recommendations"
+                        android:textAppearance="@style/TextAppearance.Large.Bold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.Clickable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/all"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.Light.Blue"
+                        android:textStyle="bold" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recommendationsListRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:paddingStart="@dimen/home_side_padding"
+                    android:paddingEnd="@dimen/home_side_padding"
+                    app:dividerDecoration="@{@drawable/divider_big}"
+                    app:dividerOrientation="@{RecyclerView.HORIZONTAL}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </com.infoshell.presentation.ui.custom.interceptors.InterceptLinearLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

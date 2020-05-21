@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.infoshell.presentation.ui.home.CompilationViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/compilation_block_height">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/grid_20">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    loadUrl="@{viewModel.firstImage}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2.5dp"
+                    android:layout_weight="1"
+                    android:minWidth="@dimen/compilation_image_big_width"
+                    android:minHeight="@dimen/compilation_image_big_height"
+                    android:scaleType="centerCrop" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:columnCount="2">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        loadUrl="@{viewModel.secondImage}"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="2.5dp"
+                        android:minWidth="@dimen/compilation_image_small_width"
+                        android:minHeight="@dimen/compilation_image_small_height"
+                        android:scaleType="centerCrop" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        loadUrl="@{viewModel.thirdImage}"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="2.5dp"
+                        android:minWidth="@dimen/compilation_image_small_width"
+                        android:minHeight="@dimen/compilation_image_small_height"
+                        android:scaleType="centerCrop" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        loadUrl="@{viewModel.fourthImage}"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="2.5dp"
+                        android:minWidth="@dimen/compilation_image_small_width"
+                        android:minHeight="@dimen/compilation_image_small_height"
+                        android:scaleType="centerCrop" />
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="2.5dp"
+                        android:minWidth="@dimen/compilation_image_small_width"
+                        android:minHeight="@dimen/compilation_image_small_height">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            loadUrl="@{viewModel.fifthImage}"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:minWidth="@dimen/compilation_image_small_width"
+                            android:minHeight="@dimen/compilation_image_small_height"
+                            android:scaleType="centerCrop" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_blackout"
+                            android:gravity="center"
+                            android:text="@{String.format(@string/plus_prefix, viewModel.moreItemCount)}"
+                            android:textColor="@color/colorPrimaryWhite"
+                            android:textStyle="bold"
+                            android:visibility="@{viewModel.hasMoreItems ? View.VISIBLE : View.GONE}" />
+
+                    </FrameLayout>
+                </GridLayout>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="0sp"
+                android:text="@{viewModel.compilation.name}"
+                android:textColor="@color/colorPrimaryBlack"
+                android:textSize="@dimen/text_size_16"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
